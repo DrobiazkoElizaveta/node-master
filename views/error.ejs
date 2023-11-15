@@ -5,26 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="./CSS/bootstrap-5.3.2/dist/css/bootstrap.css"
+    />
+
     <title>Document</title>
   </head>
   <body>
-    <img
-      src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fblog.vverh.digital%2F2020%2Fchto-takoe-error-404-page-not-found%2F&psig=AOvVaw0hPpC6S94ND59RHf1aFyt-&ust=1699704125657000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCNjl9raxuYIDFQAAAAAdAAAAABAE"
-      alt=""
-    />
+    <header class="header"><%- include("partials/header") %></header>
     <div id="background"></div>
     <div class="top">
       <h1>404</h1>
       <h3>page not found</h3>
     </div>
-
-    <%if (err.status=404) {%>
-    <h1><%=err.message%></h1>
-    <img
-      src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fblog.vverh.digital%2F2020%2Fchto-takoe-error-404-page-not-found%2F&psig=AOvVaw0hPpC6S94ND59RHf1aFyt-&ust=1699704125657000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCNjl9raxuYIDFQAAAAAdAAAAABAE"
-      alt=""
-    />
-    <%}%>
 
     <div class="container">
       <div class="ghost-copy">
@@ -42,5 +36,6 @@
       </div>
       <div class="shadow"></div>
     </div>
+    <script src="./CSS/bootstrap-5.3.2/dist/js/bootstrap.js"></script>
   </body>
 </html>

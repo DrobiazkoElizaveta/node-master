@@ -11,9 +11,15 @@ app.use(express.static(path.join(__dirname, "views")));
 
 app.use(express.json());
 app.use(express.urlencoded({ extendend: true }));
-
-// console.log(__dirname + "/public/favicon.png");
 app.use(express.static(path.join(__dirname, "public")));
+app.use(
+  express.static(
+    path.join(
+      __dirname,
+      "public/CSS/bootstrap-5.3.2/dist/css/bootstrap.min.css"
+    )
+  )
+);
 
 app.use(favicon(__dirname + "/public/favicon.png"));
 
