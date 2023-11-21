@@ -16,7 +16,15 @@ app.use(
   express.static(
     path.join(
       __dirname,
-      "public/CSS/bootstrap-5.3.2/dist/css/bootstrap.min.css"
+      "/CSS/bootstrap-5.3.2/dist/css/bootstrap.css"
+    )
+  )
+);
+app.use(
+  express.static(
+    path.join(
+      __dirname,
+      "/CSS/bootstrap-5.3.2/dist/js/bootstrap.js"
     )
   )
 );
