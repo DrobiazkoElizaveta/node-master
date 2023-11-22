@@ -5,6 +5,8 @@ const path = require("path");
 const app = express("");
 const ejs = require("ejs");
 
+const myRoutes = require("./routers/index_routers");
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "views")));
@@ -26,11 +28,18 @@ app.use(
 
 app.use(favicon(__dirname + "/public/favicon.png"));
 
-const port = "3000";
+app.use(myRoutes);
+
 app.get("/", (req, res) => {
   addLine("Pinging /");
   res.sendFileSync(__dirname + "/public/index.html");
 });
+
+const port = "3000";
+// app.get("/", (req, res) => {
+//   addLine("Pinging /");
+//   res.sendFileSync(__dirname + "/public/index.html");
+// });
 
 app.get("/test", (req, res) => {
   console.log("Прошли по пути тест");
@@ -42,18 +51,6 @@ app.post("/test", (req, res) => {
   console.log("Прошли по пути post test");
   res.end("Прошли по пути post test");
 });
-
-function addLine(line) {
-  line = line + " timestamp: " + new Date().toLocaleString();
-
-  fs.appendFile(
-    path.join(__dirname + "/public/logger.txt"),
-    line + "\n",
-    (err) => {
-      if (err) console.log(err);
-    }
-  );
-}
 
 app.use((req, res, next) => {
   const err = new Error("ERROR");
