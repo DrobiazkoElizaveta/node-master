@@ -13,19 +13,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extendend: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
+  "/css/bootstrap.css",
   express.static(
-    path.join(
-      __dirname,
-      "/CSS/bootstrap-5.3.2/dist/css/bootstrap.css"
-    )
+    path.join(__dirname, "/CSS/bootstrap-5.3.2/dist/css/bootstrap.css")
   )
 );
 app.use(
   express.static(
-    path.join(
-      __dirname,
-      "/CSS/bootstrap-5.3.2/dist/js/bootstrap.js"
-    )
+    path.join(__dirname, "/CSS/bootstrap-5.3.2/dist/js/bootstrap.js")
   )
 );
 
