@@ -52,9 +52,6 @@ app.use(favicon(__dirname + "/public/favicon.png"));
 
 app.use(myRoutes);
 
-app.listen(port, () => {
-  console.log(`listen on port ${port}`);
-});
 app.get("env") == "production";
 console.log(app.get("env"));
 if (app.get("env") == "production") {
@@ -82,3 +79,7 @@ if (app.get("env") != "development") {
     console.log(app.get("env"), err.status, err.message);
   });
 }
+
+app.listen(port, () => {
+  console.log(`listen on port ${port}`);
+});
