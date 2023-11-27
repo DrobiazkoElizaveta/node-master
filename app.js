@@ -4,10 +4,17 @@ const fs = require("fs");
 const path = require("path");
 const { nextTick } = require("process");
 const ejs = require("ejs");
+const Sequelize = require("sequelize");
+const sqlite = require("sqlite3");
 
 const app = express();
 const myRoutes = require("./routers/index_routers");
 const port = "3000";
+
+const sequelize = new Sequelize({
+  dialect: "sqlite",
+  storage: "metanit.db",
+});
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
