@@ -107,6 +107,12 @@ const User = sequelize.define("user", {
 //   })
 //   .catch((err) => console.log(err));
 
+User.findAll({ raw: true })
+  .then((users) => {
+    console.log(users);
+  })
+  .catch((err) => console.log(err));
+
 sequelize
   .sync()
   .then((result) => {
