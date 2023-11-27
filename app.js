@@ -2,7 +2,7 @@ const express = require("express");
 const favicon = require("express-favicon");
 const fs = require("fs");
 const path = require("path");
-const { nextTick } = require("process");
+// const { nextTick } = require("process");
 const ejs = require("ejs");
 const Sequelize = require("sequelize");
 const sqlite = require("sqlite3");
@@ -13,7 +13,10 @@ const port = "3000";
 
 const sequelize = new Sequelize({
   dialect: "sqlite",
-  storage: "metanit.db",
+  storage: "test.db",
+  define: {
+    timestamps: false,
+  },
 });
 
 app.set("view engine", "ejs");
@@ -22,7 +25,7 @@ app.set("views", path.join(__dirname, "views"));
 // const filePath = path.join(__dirname, "tmp", "1.txt");
 
 // fs.writeFile(filePath, `Сервер запущен. Порт: ${port}`, (err) => {
-//   if (err) console.error(err);
+//   if (err) console.error(err);npm
 //   console.log("файл создан");
 // });
 
@@ -59,9 +62,6 @@ app.use(favicon(__dirname + "/public/favicon.png"));
 
 app.use(myRoutes);
 
-app.listen(port, () => {
-  console.log(`listen on port ${port}`);
-});
 app.get("env") == "production";
 console.log(app.get("env"));
 if (app.get("env") == "production") {
@@ -70,6 +70,49 @@ if (app.get("env") == "production") {
     res.sendFile(err.message);
   });
 }
+
+const User = sequelize.define("user", {
+  id: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+    allowNull: false,
+  },
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  age: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+});
+
+// User.create({
+//   name: "Tom",
+//   age: 35,
+// })
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => console.log(err));
+
+// User.create({
+//   name: "Bob",
+//   age: 31,
+// })
+//   .then((res) => {
+//     const user = { id: res.id, name: res.name, age: res.age };
+//     console.log(user);
+//   })
+//   .catch((err) => console.log(err));
+
+sequelize
+  .sync()
+  .then((result) => {
+    console.log(result);
+  })
+  .catch((err) => console.log(err));
 //ERROR HANDLER
 app.use((req, res, next) => {
   const err = new Error("Could't get path");
@@ -89,3 +132,7 @@ if (app.get("env") != "development") {
     console.log(app.get("env"), err.status, err.message);
   });
 }
+
+app.listen(port, () => {
+  console.log(`listen on port ${port}`);
+});
