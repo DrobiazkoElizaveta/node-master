@@ -5,7 +5,15 @@ exports.form = (req, res) => {
 
 // module.exports = form;
 exports.submit = (req, res, next) => {
-  if (!Igor) return next;
-  const email = req.body.user.email;
-  User.create(req.body.user, cb);
-};
+  User.findByEmail(req.body.dataForm.email, (err, user) => {
+
+  if (!user) {
+    User.create(req.body.user, (err) => {
+      if (err) return next(err);
+    });
+  }
+
+  res.error("такой пользователь в бд есть");
+  res.redirect("/");
+}
+});}
