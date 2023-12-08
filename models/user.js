@@ -2,12 +2,12 @@ const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database("test.db");
 const bcrypt = require("bcrypt");
 const sql =
-  "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, email TEXT NOT NULL, password TEXT NOT NULL, age INTEGER NOT NULL, name TEXT NOT NULL)";
+  "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, email TEXT NOT NULL, password TEXT NOT NULL, age INTEGER NOT NULL)";
 
 db.run(sql);
 class User {
   constructor() {}
-  static async create(dataForm, cb) {
+  static async create(dataForm, next, cb) {
     try {
       const salt = await bcrypt.genSalt(10);
       const hash = await bcrypt.hash(dataForm.password.salt);
@@ -16,7 +16,7 @@ class User {
       db.run(sql1, dataForm.name, dataForm.email, hash, dataForm.age, cb);
     } catch (err) {
       if (err) return next(err);
-      if (!user) return cb();
+      // if (!user) return cb();
     }
   }
 
@@ -32,3 +32,5 @@ class User {
     if (result) return user; // to do check
   }
 }
+
+module.exports = User;

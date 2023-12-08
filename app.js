@@ -61,11 +61,11 @@ if (app.get("env") == "production") {
   });
 }
 //ERROR HANDLER
-app.use((req, res, next) => {
-  const err = new Error("Could't get path");
-  err.status = 404;
-  next(err);
-});
+// app.use((req, res, next) => {
+//   const err = new Error("Could't get path");
+//   err.status = 404;
+//   next(err);
+// });
 
 if (app.get("env") != "development") {
   app.use(function (err, req, res, next) {

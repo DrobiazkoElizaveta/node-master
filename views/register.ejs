@@ -7,13 +7,12 @@
     <link rel="stylesheet" href="/css/bootstrap.css" />
     <script defer src="./css/bootstrap-5.3.2/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="./css/index.css" />
-    <title>Register</title>
+    <title><%= title %></title>
   </head>
   <body>
     <header><%- include('./partials/header'); %></header>
     <main class="form-signup w-100 m-auto">
-      <form class="needs-validation" novalidate>
-        <img class="mb-4" src="./images/logo.svg" alt="" width="100" />
+      <form method="POST">
         <h1 class="h3 mb-3 fw-normal">Регистрация</h1>
         <div class="row">
           </div>
@@ -22,72 +21,60 @@
               <input
                 type="text"
                 class="form-control"
+                name="name"
                 id="floatingInput"
                 placeholder="Имя"
-                value=""
-                required
               />
               <label for="floatingInput">Имя</label>
-              <div class="invalid-feedback">Пожалуйста, введите своё имя!</div>
             </div>
           </div>
         </div>
-
-        <div class="col-sm-6 col-12">
-          <div class="form-floating mb-3">
-            <input
-              type="number"
-              class="form-control"
-              id="floatingAge"
-              placeholder="Возраст"
-              value=""
-              required
-            />
-            <label for="floatingAge">Возраст</label>
-            <div class="invalid-feedback">Пожалуйста, введите свой возраст!</div>
-          </div>
-        </div>
-
         <div class="row">
           <div class="col-sm-6 col-12">
             <div class="form-floating mb-3">
               <input
                 type="email"
+                name="email"
                 class="form-control"
                 id="floatingInput"
                 placeholder="you@example.com"
-                value=""
-                required
               />
               <label for="floatingInput">Почта</label>
-              <div class="invalid-feedback">
-                Пожалуйста, введите коректный адрес почты!
-              </div>
             </div>
           </div>
           </div>
         </div>
 
+        
+        
         <div class="row">
           <div class="col-sm-6 col-12">
             <div class="form-floating mb-3">
               <input
-                type="password"
-                class="form-control"
-                id="myInput"
+              type="password"
+              name="password"
+              class="form-control"
+              id="myInput"
                 placeholder="Введите пароль"
-                value=""
-                required
-              />
-              <label for="floatingPassword">Введите пароль</label>
-              <div class="invalid-feedback">Пожалуйста, введите пароль!</div>
+                />
+                <label for="floatingPassword">Введите пароль</label>
+              </div>
             </div>
           </div>
-        </div>
-
-        <button class="w-40 btn btn-lg btn-primary" type="submit">
-          Зарегистрироваться
-        </button>
+          
+          <div class="col-sm-6 col-12">
+            <div class="form-floating mb-3">
+              <input
+                type="number"
+                class="form-control"
+                id="floatingAge"
+                placeholder="Возраст"
+                name="age"
+              />
+              <label for="floatingAge">Возраст</label>
+            </div>
+          </div>
+        <input class="w-40 btn btn-lg btn-primary" type="submit">
       </form>
     </main>
     <footer><%- include('./partials/footer')%></footer>
