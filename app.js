@@ -2,7 +2,7 @@ const express = require("express");
 const favicon = require("express-favicon");
 const fs = require("fs");
 const path = require("path");
-// const { nextTick } = require("process");
+const { nextTick } = require("process");
 const ejs = require("ejs");
 
 const app = express();
@@ -12,7 +12,7 @@ const port = "3000";
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// const filePath = path.join(__dirname, "tmp", "1.txt");
+const filePath = path.join(__dirname, "tmp", "1.txt");
 
 // fs.writeFile(filePath, `Сервер запущен. Порт: ${port}`, (err) => {
 //   if (err) console.error(err);
@@ -52,6 +52,9 @@ app.use(favicon(__dirname + "/public/favicon.png"));
 
 app.use(myRoutes);
 
+app.listen(port, () => {
+  console.log(`listen on port ${port}`);
+});
 app.get("env") == "production";
 console.log(app.get("env"));
 if (app.get("env") == "production") {
@@ -61,11 +64,11 @@ if (app.get("env") == "production") {
   });
 }
 //ERROR HANDLER
-// app.use((req, res, next) => {
-//   const err = new Error("Could't get path");
-//   err.status = 404;
-//   next(err);
-// });
+app.use((req, res, next) => {
+  const err = new Error("Could't get path");
+  err.status = 404;
+  next(err);
+});
 
 if (app.get("env") != "development") {
   app.use(function (err, req, res, next) {
@@ -80,6 +83,4 @@ if (app.get("env") != "development") {
   });
 }
 
-app.listen(port, () => {
-  console.log(`listen on port ${port}`);
-});
+// kjsdhkdsh

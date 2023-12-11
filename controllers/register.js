@@ -1,19 +1,18 @@
 const User = require("../models/user");
 exports.form = (req, res) => {
-  res.render("register", { title: "Register" });
+  res.render("registerForm", { title: "Register" });
 };
 
-// module.exports = form
 exports.submit = (req, res, next) => {
-  User.findByEmail(req.body.dataForm.email, (err, user) => {
-    if (err) return next(err);
+  User.findByEmail(req.body.email, (error, user) => {
+    if (error) return next(error);
     if (user) {
-      console.log("такой пользователь в бд есть");
+      console.log("Такой пользователь в базе уже существует");
     } else {
-      User.create(req.body.user, (err) => {
+      User.create(req.body, (err) => {
         if (err) return next(err);
       });
     }
-    res.redirect("/a");
+    res.redirect("/");
   });
 };

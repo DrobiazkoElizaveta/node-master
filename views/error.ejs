@@ -12,27 +12,18 @@
   </head>
   <body>
     <header><%- include('./partials/header'); %></header>
-    <div id="background"></div>
-    <div class="top">
-      <h1>404</h1>
-      <h3>page not found</h3>
-    </div>
     <div class="container">
-      <div class="ghost-copy">
-        <div class="one"></div>
-        <div class="two"></div>
-        <div class="three"></div>
-        <div class="four"></div>
+      <div class="container_error-body">
+        <h4 class="error-body_head">Error</h4>
+        <img src="error.jpg" alt="ERROR 404" class="error-body_img" />
+        <%if(err.status === 404){%>
+        <h1><%=err.message%></h1>
+        <img src="<%=link%>" alt="kukushka" />
+        <%}%>
+        <p class="error-body_main">Error! Please back later</p>
+
+        <p class="test">kfjhkjsdfhkdfjhkj</p>
       </div>
-      <div class="ghost">
-        <div class="face">
-          <div class="eye"></div>
-          <div class="eye-right"></div>
-          <div class="mouth"></div>
-        </div>
-      </div>
-      <div class="shadow"></div>
-      <p class="p">Просто текст</p>
     </div>
     <footer><%- include('./partials/footer')%></footer>
   </body>

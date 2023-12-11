@@ -1,3 +1,3 @@
 exports.list = (req, res) => {
-  res.render("entries", { title: "List" });
+  res.render("entries", { title: "Entries" });
 };
