@@ -4,13 +4,29 @@ exports.form = (req, res) => {
   res.render("loginForm", { title: "Login" });
 };
 
+// exports.submit = (req, res, next) => {
+//   User.findByEmail(req.body.email, (error, user) => {
+//     if (error) return next(error);
+//     if (user) {
+//       res.redirect("/");
+//     } else {
+//       console.log("Такого пользователя не существует");
+//     }
+//   });
+// };
+
 exports.submit = (req, res, next) => {
-  User.findByEmail(req.body.email, (error, user) => {
+  User.authentificate(req.body.loginForm, (error, data) => {
     if (error) return next(error);
-    if (user) {
-      res.redirect("/"); 
+    if (!data) {
+      console.log("Логин или пароль не верны");
+      res.redirect("back");
     } else {
-      console.log("Такого пользователя не существует");
+      req.session.userEmail = data.email;
+      req.session.userName = data.name;
+      res.redirect("/");
     }
   });
 };
+
+exports.lodout = function (req, res) {};

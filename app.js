@@ -4,9 +4,11 @@ const fs = require("fs");
 const path = require("path");
 const { nextTick } = require("process");
 const ejs = require("ejs");
+const session = require("express-session");
 
 const app = express();
 const myRoutes = require("./routers/index_routers");
+const userSession = require("./middleware/user_session");
 const port = "3000";
 
 app.set("view engine", "ejs");
@@ -39,6 +41,14 @@ app.use(express.static(path.join(__dirname, "css")));
 app.use(express.static(path.join(__dirname, "views")));
 
 app.use(
+  session({
+    secret: "aboba",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+app.use(
   "/css/bootstrap.css",
   express.static(
     path.join(
@@ -49,7 +59,7 @@ app.use(
 );
 
 app.use(favicon(__dirname + "/public/favicon.png"));
-
+app.use(userSession);
 app.use(myRoutes);
 
 app.listen(port, () => {
