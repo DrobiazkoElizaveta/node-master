@@ -15,21 +15,21 @@
     <header><%- include('./partials/header'); %></header>
     <div class="container">
       <%#- include ('./partials/messages') %>
-      <%# entries.forEach((entry)=>{ %>
+      <% entries.forEach((entry)=>{ %>
           <div class="card entry" style="width: 66rem;">
               <div class="card-body ">
                 <h5 class="card-title"><%#= entry.title %></h5>
               
               <p class="card-text">
-                  <%#= entry.content %> 
+                  <%= entry.content %> 
                   тут контент будет
               </p>
           </br>
-          <h6>Запостил :   <%#= entry.username %> </h6>
+          <h6>Запостил :   <%= entry.username %> </h6>
               </div>
           </div> 
           </br>
-      <%# }) %> 
+      <% }) %> 
       </div>
     <footer><%- include('./partials/footer')%></footer>
   </body>
