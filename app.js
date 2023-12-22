@@ -38,7 +38,7 @@ app.use(
   )
 );
 
-app.use(favicon(__dirname + "/public/favicon.png"));
+app.use(favicon(__dirname + "/public/img/favicon.png"));
 app.use(userSession);
 app.use(myRoutes);
 
@@ -54,11 +54,22 @@ if (app.get("env") == "production") {
   });
 }
 //ERROR HANDLER
-app.use((req, res, next) => {
-  const err = new Error("Could't get path");
-  err.status = 404;
-  next(err);
+// app.use((req, res, next) => {
+//   const err = new Error("Could't get path");
+//   err.status = 404;
+//   next(err);
+// });
+
+// Маршрут для отображения страницы error.ejs
+app.get('/error', (req, res) => {
+  res.render('error');
 });
+
+// Обработка ошибки 404 (страница не найдена)
+app.use((req, res, next) => {
+  res.status(404).render('error');
+});
+
 
 // if (app.get("env") != "development") {
 //   app.use(function (err, req, res, next) {

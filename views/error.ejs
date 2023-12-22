@@ -11,20 +11,16 @@
     <title>Error</title>
   </head>
   <body>
-    <header><%- include('./partials/header'); %></header>
+    <header data-bs-theme="dark"><%- include('./partials/header'); %></header>
     <div class="container">
       <div class="container_error-body">
         <h4 class="error-body_head">Error</h4>
-        <img src="error.jpg" alt="ERROR 404" class="error-body_img" />
-        <%if(err.status === 404){%>
-        <h1><%=err.message%></h1>
-        <img src="<%=link%>" alt="kukushka" />
-        <%}%>
-        <p class="error-body_main">Error! Please back later</p>
-
-        <p class="test">kfjhkjsdfhkdfjhkj</p>
       </div>
     </div>
-    <footer><%- include('./partials/footer')%></footer>
+    <footer
+      class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"
+    >
+      <%- include('./partials/footer')%>
+    </footer>
   </body>
 </html>
