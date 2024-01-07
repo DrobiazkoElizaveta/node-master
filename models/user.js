@@ -1,23 +1,31 @@
 const sqlite3 = require("sqlite3").verbose();
 const bcrypt = require("bcrypt");
 const res = require("express/lib/response");
-const db = new sqlite3.Database("test.sqlite");
+const db = new sqlite3.Database("test.db");
 
 const sql =
-  "CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT NOT NULL, email TEXT NOT NULL, password TEXT NOT NULL, age INT NOT NULL)";
+  "CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT NOT NULL, email TEXT NOT NULL, password TEXT NOT NULL, age INT NOT NULL, isAdmin INT)";
 
 db.run(sql);
 
 class User {
   constructor() {}
-  static async create(dataForm, next, cb) {
+  static async create(dataForm, cb) {
     try {
       const salt = await bcrypt.genSalt(10);
       const hash = await bcrypt.hash(dataForm.password, salt);
 
       const sql1 =
-        "INSERT INTO users (name, email, password, age) VALUES (?, ?, ?, ?)";
-      db.run(sql1, dataForm.name, dataForm.email, hash, dataForm.age, cb);
+        "INSERT INTO users (name, email, password, age, isAdmin) VALUES (?, ?, ?, ?, ?)";
+      db.run(
+        sql1,
+        dataForm.name,
+        dataForm.email,
+        hash,
+        dataForm.age,
+        dataForm.isAdmin,
+        cb
+      );
     } catch (error) {
       if (error) return next(error);
     }
@@ -31,12 +39,11 @@ class User {
     User.findByEmail(dataForm.email, (error, user) => {
       if (error) return cb(error);
       if (!user) return cb();
-
       const result = bcrypt.compare(
         dataForm.password,
         user.password,
-        (err, result) => {
-          if (result) return cb(null, user);
+        (error, result) => {
+          if (result) return cb(null, user); //ToDo: check
           cb();
         }
       );

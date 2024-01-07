@@ -13,33 +13,30 @@
   <body>
     <header data-bs-theme="dark"><%- include('./partials/header'); %></header>
     <div class="container">
-      <%#- include ('./partials/messages') %>
-      <% entries.forEach((entry)=>{ %>
-
+      <%#- include ('./partials/messages') %> <% entries.forEach((entry)=>{ %>
       <div class="card">
         <div class="card-body">
           <h5 class="card-title"><%= entry.title %></h5>
           <p class="card-text"><%= entry.content %></p>
-          <h6>Автор:   <%= entry.username %> </h6>
-          <p class="card-text"><small class="text-body-secondary"><%= entry.timestamp %></small></p>
-          
+          <h6>Автор: <%= entry.username %></h6>
+          <% if(locals.admin){ %>
+          <a href="/update/<%= entry.id %>" class="btn-update">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </a>
+          <a href="/delete/<%= entry.id %>" class="btn-delete">
+            <i class="fas fa-trash-alt"></i>
+          </a>
+
+          <%}%>
         </div>
       </div>
-
-          <!-- <div class="card entry" style="width: 66rem;">
-              <div class="card-body ">
-                <h5 class="card-title"><%#= entry.title %></h5>
-              
-              <p class="card-text">
-                  <%= entry.content %> 
-              </p>
-          </br>
-          <h6>Автор:   <%= entry.username %> </h6>
-              </div>
-          </div>  -->
-          </br>
-      <% }) %> 
-      </div>
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"><%- include('./partials/footer')%></footer>
+      <% }) %>
+    </div>
+    <footer
+      class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"
+    >
+      <%- include('./partials/footer')%>
+    </footer>
+    <script src="/script.js"></script>
   </body>
 </html>

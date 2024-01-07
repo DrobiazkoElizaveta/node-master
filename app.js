@@ -2,13 +2,11 @@ const express = require("express");
 const favicon = require("express-favicon");
 const fs = require("fs");
 const path = require("path");
-const { nextTick } = require("process");
 const ejs = require("ejs");
 const session = require("express-session");
-
+const userSession = require("./middleware/user_session");
 const app = express();
 const myRoutes = require("./routers/index_routers");
-const userSession = require("./middleware/user_session");
 const port = "3000";
 
 app.set("view engine", "ejs");
@@ -39,14 +37,15 @@ app.use(
 );
 
 app.use(favicon(__dirname + "/public/img/favicon.png"));
+
 app.use(userSession);
 app.use(myRoutes);
 
 app.listen(port, () => {
   console.log(`listen on port ${port}`);
 });
+
 app.get("env") == "production";
-console.log(app.get("env"));
 if (app.get("env") == "production") {
   app.use((req, res, err) => {
     res.status(err.status);
@@ -54,33 +53,21 @@ if (app.get("env") == "production") {
   });
 }
 //ERROR HANDLER
-// app.use((req, res, next) => {
-//   const err = new Error("Could't get path");
-//   err.status = 404;
-//   next(err);
-// });
-
-// Маршрут для отображения страницы error.ejs
-app.get('/error', (req, res) => {
-  res.render('error');
-});
-
-// Обработка ошибки 404 (страница не найдена)
 app.use((req, res, next) => {
-  res.status(404).render('error');
+  const err = new Error("Could't get path");
+  err.status = 404;
+  next(err);
 });
 
-
-// if (app.get("env") != "development") {
-//   app.use(function (err, req, res, next) {
-//     console.log(err.status, err.message);
-//     res.status = 404;
-//     link = "https://centralsib.com/media/gallery/kukushka.jpg";
-//     res.render("error.ejs", { err, link });
-//   });
-// } else {
-//   app.use(function (err, req, res, next) {
-//     console.log(app.get("env"), err.status, err.message);
-//   });
-// }
-
+if (app.get("env") != "development") {
+  app.use(function (err, req, res, next) {
+    console.log(err.status, err.message);
+    res.status = 404;
+    link = "https://centralsib.com/media/gallery/kukushka.jpg";
+    res.render("error.ejs", { err, link });
+  });
+} else {
+  app.use(function (err, req, res, next) {
+    console.log(app.get("env"), err.status, err.message);
+  });
+}
