@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+    <script defer src="./css/bootstrap-5.3.2/dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <title><%=title%></title>
+  </head>
+  <body>
+    <header><%- include('./partials/header'); %></header>
+
+    <main class="form-login m-auto" style="width: 30%; padding: 20px">
+      <form action="/login" method="post" id="myForm" novalidate>
+        <h1
+          class="h3 mb-3 fw-normal"
+          style="display: flex; justify-content: center; align-items: center"
+        >
+          Вход
+        </h1>
+
+        <div class="form-floating">
+          <input
+            type="email"
+            class="form-control"
+            id="validationCustom01"
+            placeholder="name@email.com"
+            name="loginForm[email]"
+            required=""
+          />
+          <label for="floatingInput">Почта</label>
+        </div>
+        <br />
+        <div class="form-floating">
+          <input
+            type="password"
+            class="form-control pas"
+            id="validationCustomPas"
+            placeholder="Введите пароль"
+            name="loginForm[password]"
+            required=""
+          />
+          <label for="floatingPassword">Пароль</label>
+        </div>
+        <br />
+        <div style="text-align: center" id="message"></div>
+        <br />
+        <div
+          class="row g-2 g-5"
+          style="display: flex; justify-content: center; align-items: center"
+        >
+          <div class="col-12 col-sm-6">
+            У вас нет аккаунта?
+            <a href="register" class="text-decoration-none">Регистрация</a>
+          </div>
+        </div>
+        <br />
+        <button
+          class="btn btn-primary w-100 py-2"
+          type="submit"
+          style="background-color: #9b005f; border: 2px #9b005f solid"
+        >
+          Вход
+        </button>
+      </form>
+    </main>
+    <footer><%- include('./partials/footer')%></footer>
+    <script src="./js/validation.js"></script>
+  </body>
+</html>
