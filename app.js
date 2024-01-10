@@ -58,7 +58,6 @@ app.use(
   )
 );
 
-
 app.use(favicon(__dirname + "/public/favicon.png"));
 app.use(userSession);
 app.use(myRoutes);
