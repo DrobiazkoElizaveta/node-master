@@ -10,6 +10,11 @@ router.get("/", (req, res) => {
     title: "Главная",
   });
 });
+router.get("/about", (req, res) => {
+  res.render("aboutTheCity", {
+    title: "О городе",
+  });
+});
 
 router.get("/entries", entries.list);
 
