@@ -7,17 +7,73 @@
     <link rel="stylesheet" href="/css/bootstrap.css" />
     <link rel="stylesheet" href="./css/index.css" />
     <title><%=title%></title>
+    <style>
+      body {
+        margin-top: 95px;
+        background-color: #009393;
+      }
+      .form-login , h1 {
+    text-align: center; /* Центрируем текст внутри элементов с классом "col-lg-4" */
+    font-family: Playfair Display, serif;font-optical-sizing: auto;
+font-weight: 400;
+color: white;
+}
+
+p {
+   max-width: 1300px;
+    text-align: left;
+    font-family: Playfair Display, serif;font-optical-sizing: auto;
+font-weight: 400;
+color: white;
+}
+
+.text {
+    display: flex;
+        justify-content: center;
+}
+.gerb, .karta {
+        display: flex;
+        justify-content: center;
+    }
+
+    h1 {
+        text-align: center; /* Центрируем текст внутри элементов с классом "col-lg-4" */
+    font-family: Playfair Display, serif;font-optical-sizing: auto;
+font-weight: 700;
+color: white;
+    }
+    h4 {
+        text-align: center; /* Центрируем текст внутри элементов с классом "col-lg-4" */
+    font-family: Playfair Display, serif;font-optical-sizing: auto;
+font-weight: 700;
+color: white;
+font-size: 32px;
+    }
+    .fw-normal {
+      font-size: 55px;
+    }
+    label {
+      color: gray;
+    }
+    input {
+      border: 5px solid #4EC3BD;
+    }
+
+
+    </style>
   </head>
   <body>
-    <header><%- include('./partials/header'); %></header>
+
+
 
     <main class="form-login m-auto" style="width: 30%; padding: 20px">
       <form action="/login" method="post" id="myForm" novalidate>
+        <img src="/img/image 10.png" alt="">
         <h1
-          class="h3 mb-3 fw-normal"
+          class="fw-normal"
           style="display: flex; justify-content: center; align-items: center"
         >
-          Вход
+          ВХОД
         </h1>
 
         <div class="form-floating">
@@ -29,7 +85,7 @@
             name="loginForm[email]"
             required=""
           />
-          <label for="floatingInput">Почта</label>
+          <label for="floatingInput">Логин</label>
         </div>
         <br />
         <div class="form-floating">
@@ -59,13 +115,11 @@
         <button
           class="btn btn-primary w-100 py-2"
           type="submit"
-          style="background-color: #9b005f; border: 2px #9b005f solid"
+          style="background-color: #4EC3BD; border: 2px #4EC3BD solid"
         >
           Вход
         </button>
       </form>
     </main>
-    <footer><%- include('./partials/footer')%></footer>
-    <script src="./js/validation.js"></script>
   </body>
 </html>
