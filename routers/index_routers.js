@@ -15,6 +15,11 @@ router.get("/about", (req, res) => {
     title: "О городе",
   });
 });
+router.get("/map", (req, res) => {
+  res.render("map", {
+    title: "Карта с достопримечательностями",
+  });
+});
 
 router.get("/entries", entries.list);
 
