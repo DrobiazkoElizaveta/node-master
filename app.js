@@ -2,51 +2,51 @@ const express = require("express");
 const favicon = require("express-favicon");
 const fs = require("fs");
 const path = require("path");
-const { nextTick } = require("process");
 const ejs = require("ejs");
 const session = require("express-session");
-
+require("dotenv").config();
+const userSession = require("./middleware/user_session");
+const messages = require("./middleware/messages");
+const cookieParser = require("cookie-parser");
 const app = express();
 const myRoutes = require("./routers/index_routers");
-const userSession = require("./middleware/user_session");
-const port = "3000";
+const passport = require("passport");
+const passportFunctionYandex = require("./middleware/passport_yandex");
+const passportFunctionGoogle = require("./middleware/passport_go");
+const passportFunctionGitHub = require("./middleware/passport_github");
+const passportFunctionVKontakte = require("./middleware/passport_vk");
+const { sequelize } = require("./models/db");
+
+const port = process.env.PORT || "80";
+const logger = require("./logger/index");
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-
-const filePath = path.join(__dirname, "tmp", "1.txt");
-
-// fs.writeFile(filePath, `Сервер запущен. Порт: ${port}`, (err) => {
-//   if (err) console.error(err);
-//   console.log("файл создан");
-// });
-
-// function logger(port, router) {
-//   fs.appendFile(
-//     filePath,
-//     `\nЛогируем ping по адресу localhost:${port}${router}. Время: ${new Date()}`,
-//     (err) => {
-//       if (err) console.error(err);
-//       console.log("файл переписан");
-//     }
-//   );
-// }
-
-// console.log(app.get("env"));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "css")));
 app.use(express.static(path.join(__dirname, "views")));
-
+app.use(express.static(path.join(__dirname, "img")));
 app.use(
   session({
-    secret: "aboba",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
   })
 );
+
+app.use(cookieParser());
+app.use(userSession);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passportFunctionGitHub(passport);
+passportFunctionGoogle(passport);
+passportFunctionYandex(passport);
+passportFunctionVKontakte(passport);
 
 app.use(
   "/css/bootstrap.css",
@@ -57,16 +57,23 @@ app.use(
     )
   )
 );
+app.use(
+  "/js/bootstrap.js",
+  express.static(
+    path.join(__dirname, "public/css/bootstrap-5.3.2/dist/js/bootstrap.min.js")
+  )
+);
 
-app.use(favicon(__dirname + "/public/favicon.png"));
-app.use(userSession);
+app.use(favicon(__dirname + "/public/favicon.ico"));
+app.use(messages);
 app.use(myRoutes);
 
-app.listen(port, () => {
-  console.log(`listen on port ${port}`);
+app.listen(port, async () => {
+  await sequelize.sync();
+  console.log(`listen on port ${port}, все базы данных синхронизированны`);
 });
+
 app.get("env") == "production";
-console.log(app.get("env"));
 if (app.get("env") == "production") {
   app.use((req, res, err) => {
     res.status(err.status);
@@ -85,12 +92,11 @@ if (app.get("env") != "development") {
     console.log(err.status, err.message);
     res.status = 404;
     link = "https://centralsib.com/media/gallery/kukushka.jpg";
-    res.render("error.ejs", { err, link });
+    res.render("error.ejs", { title: "Error", err, link });
   });
 } else {
   app.use(function (err, req, res, next) {
     console.log(app.get("env"), err.status, err.message);
+    logger.error(`${app.get("env")} ${err.status} ${err.message}`);
   });
 }
-
-// kjsdhkdsh
